@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "expo-router";
+import * as Application from "expo-application";
 import ContentContainer from "@/components/ContentContainer";
 import { SelectorButton } from "@/components/SelectorButton";
 import { n } from "@/utils/scaling";
@@ -33,8 +34,10 @@ export default function SettingsScreen() {
 
     const presetLabel = PRESETS.find((p) => p.id === selectedPreset)?.label ?? "Default";
 
+    const version = Application.nativeApplicationVersion;
+
     return (
-        <ContentContainer headerTitle="Settings" hideBackButton style={styles.container}>
+        <ContentContainer headerTitle={`Settings (v${version})`} hideBackButton style={styles.container}>
             <SelectorButton
                 label="Voice Speed"
                 value={presetLabel}
