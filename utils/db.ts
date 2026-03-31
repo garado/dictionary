@@ -42,9 +42,19 @@ export interface EntryMeaning {
 
 export async function searchWord(query: string): Promise<SearchResult[]> {
     const database = await getDb();
+    const q = query.toLowerCase();
+    if (q.length < 3) {
+        return database.getAllAsync<SearchResult>(
+            "SELECT id, word, pos, definition FROM entries WHERE word = ? LIMIT 15",
+            [q]
+        );
+    }
     return database.getAllAsync<SearchResult>(
-        "SELECT id, word, pos, definition FROM entries WHERE word = ? LIMIT 15",
-        [query.toLowerCase()]
+        `SELECT id, word, pos, definition FROM entries
+         WHERE id IN (SELECT rowid FROM entries_fts WHERE entries_fts MATCH ?)
+         ORDER BY LENGTH(word)
+         LIMIT 15`,
+        [q]
     );
 }
 

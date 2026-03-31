@@ -64,6 +64,12 @@ c.executescript("""
         antonym  TEXT NOT NULL
     );
     CREATE INDEX idx_word ON entries(word);
+    CREATE VIRTUAL TABLE entries_fts USING fts5(
+        word,
+        content='entries',
+        content_rowid='id',
+        tokenize='trigram'
+    );
 """)
 
 built_at = datetime.now(timezone.utc).isoformat()
@@ -124,6 +130,8 @@ c.executemany("INSERT INTO entries VALUES (?,?,?,?)", entries_buf)
 c.executemany("INSERT INTO examples VALUES (?,?)", examples_buf)
 c.executemany("INSERT INTO synonyms VALUES (?,?)", synonyms_buf)
 c.executemany("INSERT INTO antonyms VALUES (?,?)", antonyms_buf)
+print("Building FTS index...", flush=True)
+c.execute("INSERT INTO entries_fts(entries_fts) VALUES('rebuild')")
 conn.commit()
 conn.close()
 
