@@ -75,12 +75,8 @@ export default function SavedScreen() {
                                 }
                             >
                                 <StyledText style={styles.word}>{item.word}</StyledText>
-                                <StyledText style={styles.definition} numberOfLines={2}>
-                                    <StyledText style={styles.pos}>
-                                        ({item.pos === "adjective satellite" ? "adj." : item.pos.charAt(0) + "."} ){" "}
-                                    </StyledText>
-                                    {item.definition}
-                                </StyledText>
+                                <StyledText style={styles.pos}>{item.pos}</StyledText>
+                                <StyledText style={styles.definition} numberOfLines={2}>{item.definition}</StyledText>
                             </HapticPressable>
                             <HapticPressable onPress={() => handleRemove(item.id)} style={styles.deleteBtn}>
                                 <MaterialIcons name="close" size={n(20)} color={color} style={{ opacity: 0.4 }} />
@@ -107,18 +103,17 @@ const styles = StyleSheet.create({
     },
     itemContent: {
         flex: 1,
-        gap: n(2),
+        gap: n(4),
     },
     word: {
         fontSize: n(26),
     },
     pos: {
-        fontSize: n(16),
+        fontSize: n(18),
         opacity: 0.4,
     },
     definition: {
-        fontSize: n(16),
-        opacity: 0.6,
+        fontSize: n(18),
     },
     deleteBtn: {
         padding: n(4),
