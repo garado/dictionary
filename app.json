@@ -23,10 +23,14 @@
       "typedRoutes": true
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "eas": {
+        "projectId": "b7162544-fb31-43a1-a87d-38c5a892853c"
+      }
     },
     "ios": {
       "bundleIdentifier": "com.garado.dictionary"
-    }
+    },
+    "owner": "agarado"
   }
 }
