@@ -8,14 +8,6 @@ import { CenteredMessage } from "@/components/CenteredMessage";
 import { getEntry, EntryMeaning } from "@/utils/db";
 import { n } from "@/utils/scaling";
 
-const POS_ABBR: Record<string, string> = {
-    noun: "n.",
-    verb: "v.",
-    adjective: "adj.",
-    "adjective satellite": "adj.",
-    adverb: "adv.",
-};
-
 export default function EntryScreen() {
     const params = useLocalSearchParams<{ word: string }>();
     const word = Array.isArray(params.word) ? params.word[0] : params.word;
@@ -66,10 +58,10 @@ export default function EntryScreen() {
                 keyExtractor={(item) => String(item.id)}
                 renderItem={({ item: meaning }) => (
                     <View style={styles.meaningBlock}>
+                        <StyledText style={styles.pos}>
+                            {meaning.pos}
+                        </StyledText>
                         <StyledText style={styles.definition}>
-                            <Text style={styles.pos}>
-                                ({POS_ABBR[meaning.pos] ?? meaning.pos}){" "}
-                            </Text>
                             {meaning.definition}
                         </StyledText>
                         {meaning.examples[0] && (
@@ -107,11 +99,11 @@ const styles = StyleSheet.create({
         gap: n(4),
     },
     pos: {
-        fontSize: n(26),
+        fontSize: n(18),
         opacity: 0.4,
     },
     definition: {
-        fontSize: n(26),
+        fontSize: n(18),
     },
     example: {
         fontSize: n(16),
