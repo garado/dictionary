@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Pressable, Modal } from "react-native";
+import * as Speech from "expo-speech";
 import { useLocalSearchParams } from "expo-router";
 import ContentContainer from "@/components/ContentContainer";
 import { StyledText } from "@/components/StyledText";
@@ -68,7 +69,12 @@ export default function EntryScreen() {
     }
 
     return (
-        <ContentContainer headerTitle={title} style={styles.container}>
+        <ContentContainer
+            headerTitle={title}
+            style={styles.container}
+            rightIcon="volume-up"
+            onRightIconPress={() => Speech.speak(title, { language: "en" })}
+        >
             <SavedToast visible={toastVisible} />
             <CustomScrollView
                 data={meanings}
