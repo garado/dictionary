@@ -5,6 +5,7 @@ import { Navbar, TabConfigItem } from "@/components/Navbar";
 export const TABS_CONFIG: ReadonlyArray<TabConfigItem> = [
     { name: "Search", screenName: "index", iconName: "search" },
     { name: "Saved", screenName: "saved", iconName: "bookmark" },
+    { name: "Settings", screenName: "settings", iconName: "settings" },
 ] as const;
 
 export default function TabLayout() {
