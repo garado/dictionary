@@ -25,13 +25,6 @@ export default function SearchResultsScreen() {
         searchWord(query)
             .then((data) => {
                 clearTimeout(loadingTimer);
-                if (data[0]?.word === query.toLowerCase()) {
-                    router.replace({
-                        pathname: "/entry/[word]",
-                        params: { word: data[0].word },
-                    });
-                    return;
-                }
                 setResults(data);
                 setNotFound(data.length === 0);
                 setLoading(false);
