@@ -12,7 +12,7 @@ export default function SearchResultsScreen() {
     const params = useLocalSearchParams<{ query: string }>();
     const query = Array.isArray(params.query) ? params.query[0] : params.query;
     const [results, setResults] = useState<SearchResult[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
@@ -20,15 +20,24 @@ export default function SearchResultsScreen() {
             setLoading(false);
             return;
         }
-        setLoading(true);
         setNotFound(false);
+        const loadingTimer = setTimeout(() => setLoading(true), 200);
         searchWord(query)
             .then((data) => {
+                clearTimeout(loadingTimer);
+                if (data[0]?.word === query.toLowerCase()) {
+                    router.replace({
+                        pathname: "/entry/[word]",
+                        params: { word: data[0].word },
+                    });
+                    return;
+                }
                 setResults(data);
                 setNotFound(data.length === 0);
                 setLoading(false);
             })
             .catch(() => {
+                clearTimeout(loadingTimer);
                 setNotFound(true);
                 setLoading(false);
             });
