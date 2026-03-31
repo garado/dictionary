@@ -4,7 +4,7 @@ An offline dictionary app for the Light Phone III.
 
 ## Features
 
-- Dictionary search using [Open English Wordnet](https://github.com/globalwordnet/english-wordnet) as database
+- Offline dictionary search using local [Open English Wordnet](https://github.com/globalwordnet/english-wordnet) database
 - Word pronunciation using text-to-speech with adjustable voice speed
 - Save words for later review
 
