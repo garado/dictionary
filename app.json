@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "appname",
-    "slug": "appname",
+    "name": "Dictionary",
+    "slug": "dictionary",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "appname",
+    "scheme": "dictionary",
     "newArchEnabled": true,
     "icon": "./assets/images/icon.png",
     "android": {
       "backgroundColor": "#000000",
-      "package": "com.vandam.appname"
+      "package": "com.garado.dictionary"
     },
     "plugins": [
       "expo-router",
@@ -22,6 +22,9 @@
     },
     "extra": {
       "router": {}
+    },
+    "ios": {
+      "bundleIdentifier": "com.garado.dictionary"
     }
   }
 }
