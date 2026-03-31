@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { StyledButton } from "@/components/StyledButton";
 import ContentContainer from "@/components/ContentContainer";
+import * as Application from "expo-application";
 
 export default function SettingsScreen() {
     const params = useLocalSearchParams<{ confirmed?: string; action?: string }>();
+    const version = Application.nativeApplicationVersion;
 
     useEffect(() => {
         if (params.confirmed === "true") {
@@ -29,7 +31,7 @@ export default function SettingsScreen() {
     };
 
     return (
-        <ContentContainer headerTitle="Settings" hideBackButton>
+        <ContentContainer headerTitle={`Settings (v${version})`} hideBackButton>
             <StyledButton text="Customise" onPress={() => router.push("/settings/customise" as any)} />
             <StyledButton text="Example Confirm" onPress={handleConfirmExample} />
         </ContentContainer>
