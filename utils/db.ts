@@ -45,7 +45,7 @@ export async function searchWord(query: string): Promise<SearchResult[]> {
     const q = query.toLowerCase();
     if (q.length < 3) {
         return database.getAllAsync<SearchResult>(
-            "SELECT id, word, pos, definition FROM entries WHERE word = ? LIMIT 15",
+            "SELECT id, word, pos, definition FROM entries WHERE word = ? COLLATE NOCASE LIMIT 15",
             [q]
         );
     }
@@ -65,8 +65,8 @@ export async function getEntry(word: string): Promise<EntryMeaning[]> {
         id: number;
         pos: string;
         definition: string;
-    }>("SELECT id, pos, definition FROM entries WHERE word = ?", [
-        word.toLowerCase(),
+    }>("SELECT id, pos, definition FROM entries WHERE word = ? COLLATE NOCASE", [
+        word,
     ]);
 
     return Promise.all(
