@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         gap: n(8),
     },
     message: {
-        fontSize: n(18),
+        fontSize: n(26),
         textAlign: "center",
     },
     hint: {

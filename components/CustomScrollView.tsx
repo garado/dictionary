@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         width: n(1),
         height: "100%",
         position: "absolute",
-        right: n(-2),
+        right: n(-20),
     },
     scrollIndicatorThumb: {
         width: n(5),

@@ -39,7 +39,7 @@ export function Navbar({
                 >
                     <MaterialIcons
                         name={tab.iconName}
-                        size={n(48)}
+                        size={n(40)}
                         color={
                             tab.screenName === currentScreenName
                                 ? invertColors
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         paddingVertical: n(11),
-        paddingHorizontal: n(20),
+        paddingHorizontal: n(25),
     },
 });

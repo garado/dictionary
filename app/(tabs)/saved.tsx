@@ -57,7 +57,7 @@ export default function SavedScreen() {
             style={styles.container}
         >
             {items.length === 0 ? (
-                <CenteredMessage message="No saved definitions" hint="Hold a definition for 2 seconds to save it" />
+                <CenteredMessage message="No saved definitions" hint="Tap and hold a definition to save" />
             ) : (
                 <CustomScrollView
                     data={items}
