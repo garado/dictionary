@@ -1,70 +1,78 @@
+import { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import ContentContainer from "@/components/ContentContainer";
 import CustomScrollView from "@/components/CustomScrollView";
 import { ListItem } from "@/components/ListItem";
-import { Separator } from "@/components/Separator";
 import { CenteredMessage } from "@/components/CenteredMessage";
+import { searchWord, SearchResult } from "@/utils/db";
 import { n } from "@/utils/scaling";
 
-interface SearchResult {
-    id: string;
-    title: string;
-    subtitle: string;
-}
-
-function search(query: string): SearchResult[] {
-    // Example search - replace with your actual search logic
-    const mockData: SearchResult[] = [
-        { id: "1", title: "Example Result 1", subtitle: "Description here" },
-        { id: "2", title: "Example Result 2", subtitle: "Another description" },
-        { id: "3", title: "Example Result 3", subtitle: "More details" },
-    ];
-
-    return mockData.filter(
-        (item) =>
-            item.title.toLowerCase().includes(query.toLowerCase()) ||
-            item.subtitle.toLowerCase().includes(query.toLowerCase())
-    );
-}
-
 export default function SearchResultsScreen() {
-    const { query } = useLocalSearchParams<{ query: string }>();
+    const params = useLocalSearchParams<{ query: string }>();
+    const query = Array.isArray(params.query) ? params.query[0] : params.query;
+    const [results, setResults] = useState<SearchResult[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [notFound, setNotFound] = useState(false);
 
-    const results = query ? search(query) : [];
-
-    const handleItemPress = (item: SearchResult) => {
-        // Navigate to detail screen
-        // router.push({ pathname: "/detail/[id]", params: { id: item.id } });
-    };
+    useEffect(() => {
+        if (!query) {
+            setLoading(false);
+            return;
+        }
+        setLoading(true);
+        setNotFound(false);
+        searchWord(query)
+            .then((data) => {
+                setResults(data);
+                setNotFound(data.length === 0);
+                setLoading(false);
+            })
+            .catch(() => {
+                setNotFound(true);
+                setLoading(false);
+            });
+    }, [query]);
 
     if (!query) {
+        return <ContentContainer headerTitle=" " style={styles.container} />;
+    }
+
+    if (loading) {
         return (
-            <ContentContainer headerTitle=" " style={styles.container} />
+            <ContentContainer headerTitle={query} style={styles.container}>
+                <CenteredMessage message="Loading..." />
+            </ContentContainer>
+        );
+    }
+
+    if (notFound) {
+        return (
+            <ContentContainer headerTitle={query} style={styles.container}>
+                <CenteredMessage message={`No results for "${query}"`} />
+            </ContentContainer>
         );
     }
 
     return (
-        <ContentContainer
-            headerTitle={`Results for "${query}"`}
-            style={styles.container}
-        >
-            {results.length > 0 ? (
-                <CustomScrollView
-                    data={results}
-                    renderItem={({ item }) => (
-                        <ListItem
-                            primaryText={item.title}
-                            secondaryText={item.subtitle}
-                            onPress={() => handleItemPress(item)}
-                        />
-                    )}
-                    keyExtractor={(item) => item.id}
-                    ItemSeparatorComponent={() => <Separator />}
-                />
-            ) : (
-                <CenteredMessage message={`No results found for "${query}"`} />
-            )}
+        <ContentContainer headerTitle={query} style={styles.container}>
+            <CustomScrollView
+                data={results}
+                renderItem={({ item }) => (
+                    <ListItem
+                        primaryText={item.word}
+                        secondaryText={`${item.pos} · ${item.definition}`}
+                        onPress={() =>
+                            router.push({
+                                pathname: "/entry/[word]",
+                                params: { word: item.word },
+                            })
+                        }
+                    />
+                )}
+                keyExtractor={(item) => String(item.id)}
+                contentContainerStyle={styles.listContent}
+            />
         </ContentContainer>
     );
 }
@@ -72,5 +80,8 @@ export default function SearchResultsScreen() {
 const styles = StyleSheet.create({
     container: {
         paddingBottom: n(20),
+    },
+    listContent: {
+        gap: n(20),
     },
 });

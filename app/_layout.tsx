@@ -36,6 +36,7 @@ function RootNavigation() {
             <Stack.Screen name="settings/customise-interface" />
             <Stack.Screen name="settings/display-mode" />
             <Stack.Screen name="confirm" />
+            <Stack.Screen name="entry/[word]" />
         </Stack>
     );
 }
