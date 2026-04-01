@@ -1,12 +1,19 @@
 <img src="assets/images/dictionary.png" alt="Dictionary">
 
-An offline dictionary app for the Light Phone III.
+A simple offline dictionary app for the Light Phone III.
 
 ## Features
 
 - Offline dictionary search using local [Open English Wordnet](https://github.com/globalwordnet/english-wordnet) database
-- Word pronunciation using text-to-speech with adjustable voice speed
+- Word pronunciation using Android text-to-speech with adjustable voice speed
 - Save words for later review
+
+## Known issues
+
+A few things that are acceptable for an initial release, but I'll look into improving them later:
+
+- If a word isn't included in [Open English Wordnet](https://github.com/globalwordnet/english-wordnet), it won't be available here. OEW does not include foundational words like "what", "because", "of", etc.
+- Pronunciation is rudimentary and uses Android text-to-speech instead of IPA. This can lead to inaccuracies for certain words.
 
 ## Installation
 
