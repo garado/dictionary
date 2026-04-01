@@ -10,10 +10,10 @@ A simple offline dictionary app for the Light Phone III.
 
 ## Known issues
 
-A few things that are acceptable for an initial release, but I'll look into improving them later:
+A few things I thought were acceptable for an initial "I want something right now" release, but I'll look into improving them later:
 
 - If a word isn't included in [Open English Wordnet](https://github.com/globalwordnet/english-wordnet), it won't be available here. OEW does not include foundational words like "what", "because", "of", etc.
-- Pronunciation is rudimentary and uses Android text-to-speech instead of IPA. This can lead to inaccuracies for certain words.
+- Pronunciation is rudimentary and uses Android text-to-speech instead of IPA. This can lead to inaccuracies for certain words, esp. words which have different pronunciations for different meanings.
 
 ## Installation
 
