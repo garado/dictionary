@@ -17,7 +17,7 @@ A few things I thought were acceptable for an initial "I want something right no
 
 ## Installation
 
-The latest APK is available in [releases](https://github.com/garado/metronome/releases/).
+The latest APK is available in [releases](https://github.com/garado/dictionary/releases/).
 
 I recommend using [Obtainium](https://github.com/ImranR98/Obtainium) and adding the repository's URL to receive updates.
 
